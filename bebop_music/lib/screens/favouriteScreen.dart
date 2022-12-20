@@ -13,12 +13,12 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 57, 4, 97),
+        backgroundColor: const Color.fromARGB(255, 57, 4, 97),
         title: Text('Favourites'),
         actions: [
           TextButton(
             onPressed: () {},
-            child: Icon(
+            child: const Icon(
               Icons.search,
               size: 30,
               color: Colors.white,
@@ -43,7 +43,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         ),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextButton(
@@ -54,7 +54,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
-                    color: Color.fromARGB(255, 81, 21, 88),
+                    color: const Color.fromARGB(255, 81, 21, 88),
                   ),
                 ),
                 child: ListTile(
@@ -64,15 +64,15 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 3,
-                        color: Color.fromARGB(255, 28, 13, 86),
+                        color: const Color.fromARGB(255, 28, 13, 86),
                       ),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Image(
+                    child: const Image(
                       image: AssetImage('assets/images/headset.png'),
                     ),
                   ),
-                  title: Text(
+                  title: const Text(
                     'Music is life',
                     style: TextStyle(color: Colors.white, fontSize: 14),
                   ),

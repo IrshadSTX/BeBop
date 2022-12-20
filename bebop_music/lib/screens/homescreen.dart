@@ -1,9 +1,7 @@
-import 'package:bebop_music/screens/MusicPlayer/musicplayer.dart';
 import 'package:bebop_music/screens/drawer_screen.dart';
 import 'package:bebop_music/screens/favouriteScreen.dart';
 import 'package:bebop_music/screens/playlistScreen.dart';
 import 'package:bebop_music/screens/widgets/allsongs.dart';
-import 'package:bebop_music/screens/widgets/moreSelect.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,16 +11,16 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 57, 4, 97),
+        backgroundColor: const Color.fromARGB(255, 57, 4, 97),
         centerTitle: true,
-        title: Image(
+        title: const Image(
           image: AssetImage('assets/images/bebop1.png'),
           width: 120,
         ),
         actions: [
           TextButton(
             onPressed: () {},
-            child: Icon(
+            child: const Icon(
               Icons.search,
               size: 30,
               color: Colors.white,
@@ -30,10 +28,10 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      drawer: Container(
+      drawer: SizedBox(
         width: MediaQuery.of(context).size.width * 0.75,
         height: MediaQuery.of(context).size.width * 1.9,
-        child: NavigationDrawer(),
+        child: const NavigationDrawer(),
       ),
       body: SafeArea(
         child: Container(
@@ -83,7 +81,8 @@ class HomeScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => FavouriteScreen(),
+                                      builder: (context) =>
+                                          const FavouriteScreen(),
                                     ),
                                   );
                                 },
@@ -91,19 +90,19 @@ class HomeScreen extends StatelessWidget {
                                   height: 130,
                                   width: 130,
                                   decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                         image: AssetImage(
                                             'assets/images/favorite.jpg'),
                                       ),
                                       border: Border.all(
-                                        color:
-                                            Color.fromARGB(255, 153, 112, 210),
+                                        color: const Color.fromARGB(
+                                            255, 153, 112, 210),
                                         width: 3,
                                       ),
                                       borderRadius: BorderRadius.circular(20)),
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 'Favourites',
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 153, 112, 210),
@@ -122,7 +121,8 @@ class HomeScreen extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => PlaylistScreen(),
+                                    builder: (context) =>
+                                        const PlaylistScreen(),
                                   ),
                                 );
                               },
@@ -130,18 +130,19 @@ class HomeScreen extends StatelessWidget {
                                 height: 130,
                                 width: 130,
                                 decoration: BoxDecoration(
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                       image: AssetImage(
                                           'assets/images/playlist.jpg'),
                                     ),
                                     border: Border.all(
-                                      color: Color.fromARGB(255, 153, 112, 210),
+                                      color: const Color.fromARGB(
+                                          255, 153, 112, 210),
                                       width: 3,
                                     ),
                                     borderRadius: BorderRadius.circular(20)),
                               ),
                             ),
-                            Text(
+                            const Text(
                               'Playlists',
                               style: TextStyle(
                                   color: Color.fromARGB(255, 153, 112, 210),
@@ -159,7 +160,7 @@ class HomeScreen extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AllSongs(),
+                                    builder: (context) => const AllSongs(),
                                   ),
                                 );
                               },
@@ -167,18 +168,19 @@ class HomeScreen extends StatelessWidget {
                                 height: 130,
                                 width: 130,
                                 decoration: BoxDecoration(
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                       image: AssetImage(
                                           'assets/images/topbeats.jpeg'),
                                     ),
                                     border: Border.all(
-                                      color: Color.fromARGB(255, 153, 112, 210),
+                                      color: const Color.fromARGB(
+                                          255, 153, 112, 210),
                                       width: 3,
                                     ),
                                     borderRadius: BorderRadius.circular(20)),
                               ),
                             ),
-                            Text(
+                            const Text(
                               'Top Beats',
                               style: TextStyle(
                                   color: Color.fromARGB(255, 153, 112, 210),
@@ -193,7 +195,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(
+                const Text(
                   ' Music Lists',
                   style: TextStyle(
                     color: Colors.white,
@@ -201,64 +203,10 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlayerScreen(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 80,
-                    width: 600,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: Color.fromARGB(255, 81, 21, 88),
-                      ),
-                    ),
-                    child: ListTile(
-                      leading: Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: Color.fromARGB(255, 28, 13, 86),
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Image(
-                          image: AssetImage('assets/images/headset.png'),
-                        ),
-                      ),
-                      title: Text(
-                        'Music is life',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      ),
-                      subtitle: Text(
-                        'Jimmy Carter',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
-                      ),
-                      trailing: TextButton(
-                        onPressed: () {},
-                        child: Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                TextButton(
                   onPressed: () {},
                   child: Container(
                     height: 80,
@@ -266,7 +214,7 @@ class HomeScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 2,
-                        color: Color.fromARGB(255, 81, 21, 88),
+                        color: const Color.fromARGB(255, 81, 21, 88),
                       ),
                     ),
                     child: ListTile(
@@ -276,121 +224,19 @@ class HomeScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 3,
-                            color: Color.fromARGB(255, 28, 13, 86),
+                            color: const Color.fromARGB(255, 28, 13, 86),
                           ),
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: Image(
-                          image: AssetImage('assets/images/nirvana.jpg'),
-                        ),
-                      ),
-                      title: Text(
-                        'Smell Like teen spirit',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      ),
-                      subtitle: Text(
-                        'Nirvana',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
-                      ),
-                      trailing: TextButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: ((context) => MoreSelect()),
-                          //   ),
-                          // );
-                          MoreSelect();
-                        },
-                        child: Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Container(
-                    height: 80,
-                    width: 600,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: Color.fromARGB(255, 81, 21, 88),
-                      ),
-                    ),
-                    child: ListTile(
-                      leading: Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: Color.fromARGB(255, 28, 13, 86),
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Image(
-                          image: AssetImage('assets/images/micheal.jpeg'),
-                        ),
-                      ),
-                      title: Text(
-                        'Billie Jean',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      ),
-                      subtitle: Text(
-                        'Michael Jackson',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
-                      ),
-                      trailing: TextButton(
-                        onPressed: () {},
-                        child: Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Container(
-                    height: 80,
-                    width: 600,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: Color.fromARGB(255, 81, 21, 88),
-                      ),
-                    ),
-                    child: ListTile(
-                      leading: Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: Color.fromARGB(255, 28, 13, 86),
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Image(
+                        child: const Image(
                           image: AssetImage('assets/images/bobdylan.jpeg'),
                         ),
                       ),
-                      title: Text(
+                      title: const Text(
                         'Smell Like teen spirit',
                         style: TextStyle(color: Colors.white, fontSize: 14),
                       ),
-                      subtitle: Text(
+                      subtitle: const Text(
                         'Nirvana',
                         style: TextStyle(
                           color: Colors.white,
@@ -399,7 +245,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       trailing: TextButton(
                         onPressed: () {},
-                        child: Icon(
+                        child: const Icon(
                           Icons.more_vert,
                           color: Colors.white,
                         ),
