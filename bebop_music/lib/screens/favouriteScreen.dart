@@ -14,7 +14,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 57, 4, 97),
-        title: Text('Favourites'),
+        title: const Text('Favourites'),
         actions: [
           TextButton(
             onPressed: () {},
@@ -76,7 +76,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     'Music is life',
                     style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
-                  subtitle: Text(
+                  subtitle: const Text(
                     'Jimmy Carter',
                     style: TextStyle(
                       color: Colors.white,

@@ -1,6 +1,8 @@
+import 'package:bebop_music/screens/provider/provider.dart';
 import 'package:bebop_music/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   await JustAudioBackground.init(
@@ -8,7 +10,8 @@ Future<void> main() async {
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => SongModelProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'BeBop',
       theme: ThemeData(
           primarySwatch: Colors.blueGrey, fontFamily: 'PoppinsMedium'),
-      home: SplashScreen(),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

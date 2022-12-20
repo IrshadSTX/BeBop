@@ -1,11 +1,48 @@
 import 'package:bebop_music/screens/drawer_screen.dart';
 import 'package:bebop_music/screens/favouriteScreen.dart';
 import 'package:bebop_music/screens/playlistScreen.dart';
-import 'package:bebop_music/screens/widgets/allsongs.dart';
+import 'package:bebop_music/screens/provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer';
+import 'package:bebop_music/screens/MusicPlayer/musicplayer.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final OnAudioQuery _audioQuery = OnAudioQuery();
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  List<SongModel> allSongs = [];
+
+  playSong(String? uri) {
+    try {
+      _audioPlayer.setAudioSource(AudioSource.uri(
+        Uri.parse(uri!),
+      ));
+      _audioPlayer.play();
+    } on Exception {
+      log('Error parsing song');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    requestPermission();
+  }
+
+  void requestPermission() {
+    Permission.storage.request();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,17 +92,17 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text(
-                //   ' Libraries',
-                //   style: TextStyle(
-                //     color: Colors.white,
-                //     fontFamily: 'Poppins',
-                //     fontSize: 20,
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: 10,
-                // ),
+                const Text(
+                  ' Libraries',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Poppins',
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 SingleChildScrollView(
                   child: SizedBox(
                     height: 200,
@@ -156,14 +193,7 @@ class HomeScreen extends StatelessWidget {
                         Column(
                           children: [
                             TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const AllSongs(),
-                                  ),
-                                );
-                              },
+                              onPressed: () {},
                               child: Container(
                                 height: 130,
                                 width: 130,
@@ -206,52 +236,112 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Container(
-                    height: 80,
-                    width: 600,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: const Color.fromARGB(255, 81, 21, 88),
-                      ),
-                    ),
-                    child: ListTile(
-                      leading: Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: const Color.fromARGB(255, 28, 13, 86),
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: const Image(
-                          image: AssetImage('assets/images/bobdylan.jpeg'),
-                        ),
-                      ),
-                      title: const Text(
-                        'Smell Like teen spirit',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      ),
-                      subtitle: const Text(
-                        'Nirvana',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
-                      ),
-                      trailing: TextButton(
-                        onPressed: () {},
-                        child: const Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                FutureBuilder<List<SongModel>>(
+                  future: _audioQuery.querySongs(
+                    sortType: null,
+                    orderType: OrderType.ASC_OR_SMALLER,
+                    uriType: UriType.EXTERNAL,
+                    ignoreCase: true,
                   ),
+                  builder: (context, item) {
+                    if (item.data == null) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (item.data!.isEmpty) {
+                      return const Center(child: Text("No Songs found"));
+                    }
+                    return Expanded(
+                      child: Stack(
+                        children: [
+                          ListView.separated(
+                            itemBuilder: ((context, index) {
+                              allSongs.addAll(item.data!);
+                              return Container(
+                                height: 70,
+                                width: 600,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 2,
+                                    color:
+                                        const Color.fromARGB(255, 81, 21, 88),
+                                  ),
+                                ),
+                                child: ListTile(
+                                  leading: QueryArtworkWidget(
+                                    id: item.data![index].id,
+                                    type: ArtworkType.AUDIO,
+                                    nullArtworkWidget:
+                                        const Icon(Icons.music_note),
+                                  ),
+                                  title: Text(
+                                    item.data![index].displayNameWOExt,
+                                    style: const TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        color: Colors.white,
+                                        fontSize: 16),
+                                  ),
+                                  iconColor: Colors.white,
+                                  subtitle: Text("${item.data![index].artist}",
+                                      style: const TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          color: Colors.white,
+                                          fontSize: 12)),
+                                  trailing: const Icon(Icons.more_vert),
+                                  onTap: () {
+                                    context
+                                        .read<SongModelProvider>()
+                                        .setId(item.data![index].id);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PlayerScreen(
+                                            songModelList: [item.data![index]],
+                                            audioPlayer: _audioPlayer,
+                                          ),
+                                        ));
+                                  },
+                                ),
+                              );
+                            }),
+                            separatorBuilder: (context, index) => SizedBox(
+                              height: 5,
+                            ),
+                            itemCount: item.data!.length,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PlayerScreen(
+                                      songModelList: allSongs,
+                                      audioPlayer: _audioPlayer,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(0, 0, 15, 15),
+                                child: const CircleAvatar(
+                                  backgroundColor: Colors.amber,
+                                  radius: 25,
+                                  child: Icon(
+                                    Icons.play_arrow,
+                                    size: 30,
+                                    color: Color.fromARGB(255, 61, 30, 103),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
