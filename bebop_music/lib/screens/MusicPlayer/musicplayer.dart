@@ -62,20 +62,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
         _position = p;
       });
     });
-    listenToSongIndex() {
-      (widget.audioPlayer.currentIndexStream.listen(
-        (event) {
-          setState(() {
-            if (event != null) {
-              currentIndex = event;
-            }
-            context
-                .read<SongModelProvider>()
-                .setId(widget.songModelList[currentIndex].id);
-          });
-        },
-      ));
-    }
   }
 
   @override
