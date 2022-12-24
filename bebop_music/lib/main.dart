@@ -10,8 +10,12 @@ Future<void> main() async {
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
-  runApp(ChangeNotifierProvider(
-      create: (context) => SongModelProvider(), child: const MyApp()));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => SongModelProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
