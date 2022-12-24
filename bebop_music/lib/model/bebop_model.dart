@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+part 'bebop_model.g.dart';
 
 @HiveType(typeId: 1)
 class BebopModel extends HiveObject {

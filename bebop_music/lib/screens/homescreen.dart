@@ -3,6 +3,7 @@ import 'package:bebop_music/screens/drawer_screen.dart';
 import 'package:bebop_music/screens/favouriteScreen.dart';
 import 'package:bebop_music/screens/playlistScreen.dart';
 import 'package:bebop_music/screens/provider/provider.dart';
+import 'package:bebop_music/screens/widgets/favouriteMenuButton.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:bebop_music/screens/MusicPlayer/musicplayer.dart';
@@ -10,6 +11,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+
+import '../db/favourite_db.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,7 +26,7 @@ List<SongModel> startSong = [];
 class _HomeScreenState extends State<HomeScreen> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
   final AudioPlayer _audioPlayer = AudioPlayer();
-
+  bool isFavourite = false;
   List<SongModel> allSongs = [];
 
   playSong(String? uri) {
@@ -252,8 +255,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: CircularProgressIndicator(),
                       );
                     }
+
                     if (item.data!.isEmpty) {
                       return const Center(child: Text("No Songs found"));
+                    }
+                    startSong = item.data!;
+                    if (!FavoriteDb.isInitialized) {
+                      FavoriteDb.initialize(item.data!);
                     }
                     return Expanded(
                       child: Stack(
@@ -291,7 +299,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           overflow: TextOverflow.ellipsis,
                                           color: Colors.white,
                                           fontSize: 12)),
-                                  trailing: const Icon(Icons.more_vert),
+                                  trailing: FavoriteMenuButton(
+                                      songFavorite: startSong[index]),
                                   onTap: () {
                                     GetAllSongController.audioPlayer
                                         .setAudioSource(
