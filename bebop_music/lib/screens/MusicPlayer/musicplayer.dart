@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:bebop_music/controller/get_all_song.dart';
 import 'package:bebop_music/screens/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -7,11 +8,8 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 
 class PlayerScreen extends StatefulWidget {
-  const PlayerScreen(
-      {Key? key, required this.songModelList, required this.audioPlayer})
-      : super(key: key);
+  const PlayerScreen({Key? key, required this.songModelList}) : super(key: key);
   final List<SongModel> songModelList;
-  final AudioPlayer audioPlayer;
 
   @override
   State<PlayerScreen> createState() => _PlayerScreenState();
@@ -20,44 +18,44 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   Duration _duration = const Duration();
   Duration _position = const Duration();
-
-  List<AudioSource> songList = [];
-
-  int currentIndex = 0;
   bool _isPlaying = false;
+  bool _isLooping = false;
+  bool _isShuffling = false;
+  List<AudioSource> songList = [];
+  int currentIndex = 0;
   @override
   void initState() {
+    GetAllSongController.audioPlayer.currentIndexStream.listen((index) {
+      if (index != null) {
+        setState(() {
+          currentIndex = index;
+        });
+        GetAllSongController.currentIndexes = index;
+      }
+    });
     super.initState();
     playSong();
   }
 
-  void playSong() {
-    try {
-      for (var element in widget.songModelList) {
-        songList.add(
-          AudioSource.uri(
-            Uri.parse(element.uri!),
-            tag: MediaItem(
-                id: element.id.toString(),
-                album: element.album ?? "No Album",
-                title: element.displayNameWOExt,
-                artUri: Uri.parse(element.id.toString())),
-          ),
-        );
-      }
-      widget.audioPlayer
-          .setAudioSource(ConcatenatingAudioSource(children: songList));
-      widget.audioPlayer.play();
-      _isPlaying = true;
-    } on Exception {
-      log("Cannot Parse Song");
+  String _formatDuration(Duration? duration) {
+    if (duration == null) {
+      return '--:--';
+    } else {
+      String minutes = duration.inMinutes.toString().padLeft(2, '0');
+      String seconds =
+          duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+      return '$minutes:$seconds';
     }
-    widget.audioPlayer.durationStream.listen((d) {
+  }
+
+  void playSong() {
+    GetAllSongController.audioPlayer.play();
+    GetAllSongController.audioPlayer.durationStream.listen((d) {
       setState(() {
         _duration = d!;
       });
     });
-    widget.audioPlayer.positionStream.listen((p) {
+    GetAllSongController.audioPlayer.positionStream.listen((p) {
       setState(() {
         _position = p;
       });
@@ -185,8 +183,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           IconButton(
                             iconSize: 50,
                             onPressed: () {
-                              if (widget.audioPlayer.hasPrevious) {
-                                widget.audioPlayer.seekToPrevious();
+                              if (GetAllSongController
+                                  .audioPlayer.hasPrevious) {
+                                GetAllSongController.audioPlayer
+                                    .seekToPrevious();
                               }
                               _isPlaying = !_isPlaying;
                             },
@@ -200,9 +200,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             onPressed: () {
                               setState(() {
                                 if (_isPlaying) {
-                                  widget.audioPlayer.pause();
+                                  GetAllSongController.audioPlayer.pause();
                                 } else {
-                                  widget.audioPlayer.play();
+                                  GetAllSongController.audioPlayer.play();
                                 }
                                 _isPlaying = !_isPlaying;
                               });
@@ -217,8 +217,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           IconButton(
                             iconSize: 50,
                             onPressed: () {
-                              if (widget.audioPlayer.hasNext) {
-                                widget.audioPlayer.seekToNext();
+                              if (GetAllSongController.audioPlayer.hasNext) {
+                                GetAllSongController.audioPlayer.seekToNext();
                               }
                             },
                             icon: const Icon(
@@ -267,7 +267,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   void changeToSeconds(int seconds) {
     Duration duration = Duration(seconds: seconds);
-    widget.audioPlayer.seek(duration);
+    GetAllSongController.audioPlayer.seek(duration);
   }
 }
 

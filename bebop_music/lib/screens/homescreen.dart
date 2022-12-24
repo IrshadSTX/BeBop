@@ -1,3 +1,4 @@
+import 'package:bebop_music/controller/get_all_song.dart';
 import 'package:bebop_music/screens/drawer_screen.dart';
 import 'package:bebop_music/screens/favouriteScreen.dart';
 import 'package:bebop_music/screens/playlistScreen.dart';
@@ -16,6 +17,8 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
+List<SongModel> startSong = [];
 
 class _HomeScreenState extends State<HomeScreen> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
@@ -290,6 +293,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontSize: 12)),
                                   trailing: const Icon(Icons.more_vert),
                                   onTap: () {
+                                    GetAllSongController.audioPlayer
+                                        .setAudioSource(
+                                            GetAllSongController.createSongList(
+                                                item.data!),
+                                            initialIndex: index);
                                     context
                                         .read<SongModelProvider>()
                                         .setId(item.data![index].id);
@@ -297,47 +305,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => PlayerScreen(
-                                            songModelList: [item.data![index]],
-                                            audioPlayer: _audioPlayer,
+                                            songModelList: item.data!,
                                           ),
                                         ));
                                   },
                                 ),
                               );
                             }),
-                            separatorBuilder: (context, index) => SizedBox(
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
                               height: 5,
                             ),
                             itemCount: item.data!.length,
                           ),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PlayerScreen(
-                                      songModelList: allSongs,
-                                      audioPlayer: _audioPlayer,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                margin: EdgeInsets.fromLTRB(0, 0, 15, 15),
-                                child: const CircleAvatar(
-                                  backgroundColor: Colors.amber,
-                                  radius: 25,
-                                  child: Icon(
-                                    Icons.play_arrow,
-                                    size: 30,
-                                    color: Color.fromARGB(255, 61, 30, 103),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
                         ],
                       ),
                     );

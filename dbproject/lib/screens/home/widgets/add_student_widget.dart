@@ -106,6 +106,8 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
                   ),
                   TextFormField(
                     controller: _ageController,
+                    maxLength: 3,
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Enter your age',
@@ -128,6 +130,8 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
                   ),
                   TextFormField(
                     controller: _mobileController,
+                    keyboardType: TextInputType.number,
+                    maxLength: 10,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Enter Mobile No',
