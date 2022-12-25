@@ -13,7 +13,7 @@ class PlaylistScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {},
-            child: Icon(
+            child: const Icon(
               Icons.search,
               size: 30,
               color: Colors.white,

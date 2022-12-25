@@ -23,7 +23,7 @@ class _FavoriteMenuButtonState extends State<FavoriteMenuButton> {
                       ? 'Remove from favourites'
                       : 'Add to favourite',
                   style: const TextStyle(
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 255, 255, 255),
                       fontFamily: 'Poppins',
                       fontSize: 13)),
               onTap: () {
@@ -32,7 +32,7 @@ class _FavoriteMenuButtonState extends State<FavoriteMenuButton> {
                   const snackBar = SnackBar(
                     content: Text('Removed From Favorite'),
                     duration: Duration(seconds: 1),
-                    backgroundColor: Color.fromARGB(255, 20, 5, 46),
+                    backgroundColor: Color.fromARGB(255, 138, 0, 0),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
@@ -40,7 +40,7 @@ class _FavoriteMenuButtonState extends State<FavoriteMenuButton> {
                   const snackBar = SnackBar(
                     content: Text('Song Added to Favorite'),
                     duration: Duration(seconds: 1),
-                    backgroundColor: Color.fromARGB(255, 20, 5, 46),
+                    backgroundColor: Color.fromARGB(255, 0, 95, 19),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
@@ -51,7 +51,9 @@ class _FavoriteMenuButtonState extends State<FavoriteMenuButton> {
               child: Text(
                 'Add to playlists',
                 style: TextStyle(
-                    color: Colors.white, fontFamily: 'Poppins', fontSize: 13),
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontFamily: 'Poppins',
+                    fontSize: 13),
               ),
               // value: PlaylistScreen(),
             )

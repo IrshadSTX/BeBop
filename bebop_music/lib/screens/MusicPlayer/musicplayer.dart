@@ -7,6 +7,8 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/artWork.dart';
+
 class PlayerScreen extends StatefulWidget {
   const PlayerScreen({Key? key, required this.songModelList}) : super(key: key);
   final List<SongModel> songModelList;
@@ -126,11 +128,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         widget.songModelList[currentIndex].displayNameWOExt,
                         overflow: TextOverflow.fade,
                         maxLines: 1,
+                        textAlign: TextAlign.center,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Poppins',
                             fontSize: 25,
-                            color: Color.fromARGB(255, 147, 118, 214)),
+                            color: Color.fromARGB(255, 219, 212, 234)),
                       ),
                       Text(
                         widget.songModelList[currentIndex].artist.toString() ==
@@ -148,7 +151,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       Row(
                         children: [
                           Text(
-                            _position.toString().split('.')[0],
+                            _formatDuration(_position),
                             style: const TextStyle(
                               color: Color.fromARGB(255, 183, 163, 163),
                             ),
@@ -170,7 +173,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             ),
                           ),
                           Text(
-                            _duration.toString().split('.')[0],
+                            _formatDuration(_duration),
                             style: const TextStyle(
                               color: Color.fromARGB(255, 183, 163, 163),
                             ),
@@ -228,31 +231,57 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           ),
                         ],
                       ),
-                      Container(
-                        height: 50,
-                        width: double.infinity,
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            IconButton(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                            iconSize: 30,
+                            onPressed: () {
+                              setState(() {
+                                if (_isShuffling == false) {
+                                  GetAllSongController.audioPlayer
+                                      .setShuffleModeEnabled(true);
+                                } else {
+                                  GetAllSongController.audioPlayer
+                                      .setShuffleModeEnabled(false);
+                                }
+                                _isShuffling = !_isShuffling;
+                              });
+                            },
+                            icon: _isShuffling
+                                ? const Icon(
+                                    Icons.shuffle_rounded,
+                                    color: Colors.purpleAccent,
+                                  )
+                                : const Icon(
+                                    Icons.shuffle_rounded,
+                                    color: Colors.white,
+                                  ),
+                          ),
+                          IconButton(
                               iconSize: 30,
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.shuffle,
-                                color: Colors.white,
-                              ),
-                            ),
-                            IconButton(
-                              iconSize: 30,
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.repeat,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
+                              onPressed: () {
+                                setState(() {
+                                  if (_isLooping) {
+                                    GetAllSongController.audioPlayer
+                                        .setLoopMode(LoopMode.all);
+                                  } else {
+                                    GetAllSongController.audioPlayer
+                                        .setLoopMode(LoopMode.one);
+                                  }
+                                  _isLooping = !_isLooping;
+                                });
+                              },
+                              icon: _isLooping
+                                  ? const Icon(
+                                      Icons.repeat,
+                                      color: Colors.purple,
+                                    )
+                                  : Icon(
+                                      Icons.repeat,
+                                      color: Colors.white,
+                                    )),
+                        ],
                       )
                     ],
                   ),
@@ -268,26 +297,5 @@ class _PlayerScreenState extends State<PlayerScreen> {
   void changeToSeconds(int seconds) {
     Duration duration = Duration(seconds: seconds);
     GetAllSongController.audioPlayer.seek(duration);
-  }
-}
-
-class ArtWorkWidget extends StatelessWidget {
-  const ArtWorkWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return QueryArtworkWidget(
-      id: context.watch<SongModelProvider>().id,
-      type: ArtworkType.AUDIO,
-      artworkHeight: 200,
-      artworkWidth: 200,
-      artworkFit: BoxFit.cover,
-      nullArtworkWidget: const Icon(
-        Icons.music_note,
-        size: 200,
-      ),
-    );
   }
 }
