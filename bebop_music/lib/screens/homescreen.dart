@@ -1,6 +1,7 @@
 import 'package:bebop_music/controller/get_all_song.dart';
 import 'package:bebop_music/screens/drawer_screen.dart';
 import 'package:bebop_music/screens/favouriteScreen.dart';
+import 'package:bebop_music/screens/miniPlayer.dart';
 import 'package:bebop_music/screens/playlistScreen.dart';
 import 'package:bebop_music/screens/provider/provider.dart';
 import 'package:bebop_music/screens/widgets/favouriteMenuButton.dart';
@@ -72,8 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.75,
-        height: MediaQuery.of(context).size.width * 1.9,
+        width: MediaQuery.of(context).size.width * 0.70,
+        height: MediaQuery.of(context).size.width * 2.0,
         child: const NavigationDrawer(),
       ),
       body: SafeArea(
@@ -297,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   subtitle: Text("${item.data![index].artist}",
                                       style: const TextStyle(
                                           overflow: TextOverflow.ellipsis,
-                                          color: Colors.white,
+                                          color: Colors.blueGrey,
                                           fontSize: 12)),
                                   trailing: FavoriteMenuButton(
                                       songFavorite: startSong[index]),
@@ -311,12 +312,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .read<SongModelProvider>()
                                         .setId(item.data![index].id);
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PlayerScreen(
-                                            songModelList: item.data!,
-                                          ),
-                                        ));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PlayerScreen(
+                                          songModelList: item.data!,
+                                        ),
+                                      ),
+                                    );
                                   },
                                 ),
                               );
@@ -326,6 +328,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 5,
                             ),
                             itemCount: item.data!.length,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            child: Column(
+                              children: [
+                                if (GetAllSongController
+                                        .audioPlayer.currentIndex !=
+                                    null)
+                                  Column(
+                                    children: const [
+                                      MiniPlayer(),
+                                    ],
+                                  )
+                                else
+                                  const SizedBox(),
+                              ],
+                            ),
                           ),
                         ],
                       ),

@@ -37,6 +37,9 @@ class FavouriteScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
+                      SizedBox(
+                        height: 10,
+                      ),
                       Expanded(
                         child: ValueListenableBuilder(
                             valueListenable: FavoriteDb.favoriteSongs,
@@ -105,7 +108,11 @@ class FavouriteScreen extends StatelessWidget {
                                                       color: Colors.blueGrey),
                                                 ),
                                                 trailing: IconButton(
-                                                  icon: Icon(Icons.favorite),
+                                                  icon: const Icon(
+                                                    Icons.favorite_rounded,
+                                                    color: Color.fromARGB(
+                                                        255, 108, 10, 183),
+                                                  ),
                                                   onPressed: () {
                                                     FavoriteDb.favoriteSongs
                                                         .notifyListeners();

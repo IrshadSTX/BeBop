@@ -3,10 +3,8 @@ import 'package:bebop_music/controller/get_all_song.dart';
 import 'package:bebop_music/screens/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:provider/provider.dart';
-
+import '../../db/favourite_db.dart';
 import '../widgets/artWork.dart';
 
 class PlayerScreen extends StatefulWidget {
@@ -91,6 +89,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
+                      FavoriteDb.favoriteSongs.notifyListeners();
                     },
                     icon: const Icon(
                       Icons.arrow_back,
@@ -130,7 +129,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         maxLines: 1,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             fontFamily: 'Poppins',
                             fontSize: 25,
                             color: Color.fromARGB(255, 219, 212, 234)),
@@ -251,7 +250,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             icon: _isShuffling
                                 ? const Icon(
                                     Icons.shuffle_rounded,
-                                    color: Colors.purpleAccent,
+                                    color: Colors.amber,
                                   )
                                 : const Icon(
                                     Icons.shuffle_rounded,
@@ -275,7 +274,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               icon: _isLooping
                                   ? const Icon(
                                       Icons.repeat,
-                                      color: Colors.purple,
+                                      color: Colors.amber,
                                     )
                                   : Icon(
                                       Icons.repeat,
