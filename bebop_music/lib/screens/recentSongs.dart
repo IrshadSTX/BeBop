@@ -45,7 +45,6 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        // height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [

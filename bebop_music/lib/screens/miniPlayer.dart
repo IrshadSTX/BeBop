@@ -51,7 +51,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 Container(
-                  width: 170,
+                  width: 160,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
