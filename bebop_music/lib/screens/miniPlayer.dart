@@ -46,7 +46,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
               ),
               color: Color.fromARGB(255, 2, 3, 61)),
           height: 80,
-          width: 350,
+          width: MediaQuery.of(context).size.width * 1.0,
           child: Stack(
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
