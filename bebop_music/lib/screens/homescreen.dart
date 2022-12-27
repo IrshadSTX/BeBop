@@ -117,6 +117,44 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
+                        Column(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RecentlyPlayed(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                height: 130,
+                                width: 130,
+                                decoration: BoxDecoration(
+                                    image: const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/topbeats.jpeg'),
+                                    ),
+                                    border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 153, 112, 210),
+                                      width: 3,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)),
+                              ),
+                            ),
+                            const Text(
+                              'Recent Songs',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 153, 112, 210),
+                                  fontSize: 18,
+                                  fontFamily: 'Poppins'),
+                            ),
+                            // column3
+                          ],
+                        ),
                         SizedBox(
                           height: 10,
                           child: Column(
@@ -198,44 +236,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
 
-                        Column(
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RecentlyPlayed(),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                height: 130,
-                                width: 130,
-                                decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/topbeats.jpeg'),
-                                    ),
-                                    border: Border.all(
-                                      color: const Color.fromARGB(
-                                          255, 153, 112, 210),
-                                      width: 3,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                            ),
-                            const Text(
-                              'Recent Songs',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 153, 112, 210),
-                                  fontSize: 18,
-                                  fontFamily: 'Poppins'),
-                            ),
-                            // column3
-                          ],
-                        ),
                         //your widget items here
                       ],
                     ),
