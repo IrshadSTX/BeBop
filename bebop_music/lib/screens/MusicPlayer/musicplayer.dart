@@ -197,23 +197,44 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               color: Colors.amber,
                             ),
                           ),
-                          IconButton(
-                            iconSize: 80,
-                            onPressed: () {
-                              setState(() {
-                                if (_isPlaying) {
-                                  GetAllSongController.audioPlayer.pause();
-                                } else {
-                                  GetAllSongController.audioPlayer.play();
-                                }
-                                _isPlaying = !_isPlaying;
-                              });
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Color.fromARGB(255, 20, 5, 46),
+                                shape: const CircleBorder()),
+                            onPressed: () async {
+                              if (GetAllSongController.audioPlayer.playing) {
+                                setState(() {});
+                                await GetAllSongController.audioPlayer.pause();
+                              } else {
+                                await GetAllSongController.audioPlayer.play();
+                                setState(() {});
+                              }
                             },
-                            icon: Icon(
-                              _isPlaying
-                                  ? Icons.pause_circle
-                                  : Icons.play_circle,
-                              color: Colors.white,
+                            child: StreamBuilder<bool>(
+                              stream: GetAllSongController
+                                  .audioPlayer.playingStream,
+                              builder: (context, snapshot) {
+                                bool? playingStage = snapshot.data;
+                                if (playingStage != null && playingStage) {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(6.0),
+                                    child: Icon(
+                                      Icons.pause_circle,
+                                      color: Colors.white,
+                                      size: 80,
+                                    ),
+                                  );
+                                } else {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(6.0),
+                                    child: Icon(
+                                      Icons.play_circle,
+                                      color: Colors.white,
+                                      size: 80,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                           ),
                           IconButton(
