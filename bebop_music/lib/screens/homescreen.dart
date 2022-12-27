@@ -4,6 +4,7 @@ import 'package:bebop_music/screens/favouriteScreen.dart';
 import 'package:bebop_music/screens/miniPlayer.dart';
 import 'package:bebop_music/screens/playlistScreen.dart';
 import 'package:bebop_music/screens/provider/provider.dart';
+import 'package:bebop_music/screens/recentSongs.dart';
 import 'package:bebop_music/screens/widgets/favouriteMenuButton.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
@@ -200,7 +201,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           children: [
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RecentlyPlayed(),
+                                  ),
+                                );
+                              },
                               child: Container(
                                 height: 130,
                                 width: 130,
@@ -218,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             const Text(
-                              'Top Beats',
+                              'Recent Songs',
                               style: TextStyle(
                                   color: Color.fromARGB(255, 153, 112, 210),
                                   fontSize: 18,
@@ -329,23 +338,30 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             itemCount: item.data!.length,
                           ),
-                          Positioned(
-                            bottom: 0,
-                            child: Column(
-                              children: [
-                                if (GetAllSongController
-                                        .audioPlayer.currentIndex !=
-                                    null)
-                                  Column(
-                                    children: const [
-                                      MiniPlayer(),
+                          ValueListenableBuilder(
+                              valueListenable: FavoriteDb.favoriteSongs,
+                              builder: (BuildContext context,
+                                  List<SongModel> music, Widget? child) {
+                                return Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Column(
+                                    children: [
+                                      if (GetAllSongController
+                                              .audioPlayer.currentIndex !=
+                                          null)
+                                        Column(
+                                          children: const [
+                                            MiniPlayer(),
+                                          ],
+                                        )
+                                      else
+                                        const SizedBox(),
                                     ],
-                                  )
-                                else
-                                  const SizedBox(),
-                              ],
-                            ),
-                          ),
+                                  ),
+                                );
+                              }),
                         ],
                       ),
                     );

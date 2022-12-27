@@ -40,11 +40,13 @@ class _MiniPlayerState extends State<MiniPlayer> {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.cyan, width: 3),
-              color: const Color.fromARGB(255, 2, 3, 61)),
+          decoration: const BoxDecoration(
+              border: Border(
+                top: BorderSide(color: Colors.cyan, width: 2),
+              ),
+              color: Color.fromARGB(255, 2, 3, 61)),
           height: 80,
-          width: 373,
+          width: 350,
           child: Stack(
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
