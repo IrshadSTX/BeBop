@@ -5,6 +5,7 @@ import 'package:bebop_music/screens/miniPlayer.dart';
 import 'package:bebop_music/screens/playlistScreen.dart';
 import 'package:bebop_music/screens/provider/provider.dart';
 import 'package:bebop_music/screens/recentSongs.dart';
+import 'package:bebop_music/screens/searchScreen.dart';
 import 'package:bebop_music/screens/widgets/favouriteMenuButton.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
@@ -65,7 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+              );
+            },
             child: const Icon(
               Icons.search,
               size: 30,
