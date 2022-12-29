@@ -14,6 +14,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
+import '../controller/getRecent_Controller.dart';
 import '../db/favourite_db.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -315,6 +316,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             GetAllSongController.createSongList(
                                                 item.data!),
                                             initialIndex: index);
+                                    // recently played controller
+                                    GetRecentSongController.addRecentlyPlayed(
+                                        item.data![index].id);
                                     context
                                         .read<SongModelProvider>()
                                         .setId(item.data![index].id);
