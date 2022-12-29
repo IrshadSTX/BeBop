@@ -69,7 +69,6 @@ class FavouriteScreen extends StatelessWidget {
                                                 left: 6, right: 6),
                                             child: Container(
                                               height: 70,
-                                              width: 600,
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                   width: 2,
@@ -125,7 +124,7 @@ class FavouriteScreen extends StatelessWidget {
                                                       duration:
                                                           Duration(seconds: 1),
                                                       backgroundColor:
-                                                          const Color.fromARGB(
+                                                          Color.fromARGB(
                                                               255, 20, 5, 46),
                                                     );
                                                     ScaffoldMessenger.of(
