@@ -71,20 +71,35 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextField(
-                    onChanged: (value) => updateList(value),
-                    style: const TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 57, 4, 97),
-                        border: OutlineInputBorder(borderSide: BorderSide.none),
-                        hintText: 'Search Song',
-                        hintStyle: TextStyle(color: Colors.white),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.white,
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          )),
+                      Expanded(
+                        child: TextField(
+                          onChanged: (value) => updateList(value),
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: Color.fromARGB(255, 57, 4, 97),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              hintText: 'Search Song',
+                              hintStyle: TextStyle(color: Colors.white),
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Colors.white,
+                              ),
+                              prefixIconColor: Colors.white),
                         ),
-                        prefixIconColor: Colors.white),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 5,
