@@ -1,5 +1,9 @@
+import 'dart:developer';
+
+
 import 'package:hive/hive.dart';
 part 'bebop_model.g.dart';
+
 
 @HiveType(typeId: 1)
 class BebopModel extends HiveObject {
@@ -13,6 +17,7 @@ class BebopModel extends HiveObject {
   add(int id) async {
     songId.add(id);
     save();
+    log('song added $id');
   }
 
   deleteData(int id) {

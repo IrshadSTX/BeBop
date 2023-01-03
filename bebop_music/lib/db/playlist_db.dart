@@ -1,13 +1,11 @@
-import 'package:bebop_music/model/bebop_model.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/adapters.dart';
 
-import '../controller/getRecent_Controller.dart';
-import '../screens/splash_screen.dart';
-import 'favourite_db.dart';
+import '../model/bebop_model.dart';
 
 class PlaylistDb {
   static ValueNotifier<List<BebopModel>> playlistNotifier = ValueNotifier([]);
+  static final playlistDb = Hive.box<BebopModel>('playlistDb');
 
   static Future<void> addPlaylist(BebopModel value) async {
     final playlistDb = Hive.box<BebopModel>('playlistDb');
@@ -28,27 +26,9 @@ class PlaylistDb {
     getAllPlaylist();
   }
 
-  static Future<void> resetApp(context) async {
+  static Future<void> editList(int index, BebopModel value) async {
     final playlistDb = Hive.box<BebopModel>('playlistDb');
-    final musicDb = Hive.box<int>('FavoriteDB');
-    final recentDb = await Hive.openBox('recentSongNotifier');
-    final mostPlayedDb = await Hive.openBox('mostlyPlayedNotifier');
-    await mostPlayedDb.clear();
-    await musicDb.clear();
-    await playlistDb.clear();
-    await recentDb.clear();
-    // GetMostlyPlayedController.mostlyPlayedSong.clear();
-    // GetMostlyPlayedController.mostlyPlayed.clear();
-    GetRecentSongController.recentlyPlayed.clear();
-    FavoriteDb.favoriteSongs.value.clear();
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const SplashScreen()),
-        (route) => false);
-  }
-
-  static Future<void> editList(int id, BebopModel value) async {
-    final playlistDb = Hive.box<BebopModel>('editPlaylistDb');
-    await playlistDb.put(id, value);
+    await playlistDb.putAt(index, value);
     getAllPlaylist();
   }
 }

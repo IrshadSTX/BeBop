@@ -1,3 +1,4 @@
+import 'package:bebop_music/controller/getRecent_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:text_scroll/text_scroll.dart';
 
@@ -152,6 +153,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                 IconButton(
                   iconSize: 35,
                   onPressed: () async {
+                    
                     if (GetAllSongController.audioPlayer.hasNext) {
                       await GetAllSongController.audioPlayer.seekToNext();
                       await GetAllSongController.audioPlayer.play();

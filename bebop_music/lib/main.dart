@@ -11,8 +11,12 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(BebopModelAdapter().typeId)) {
     Hive.registerAdapter(BebopModelAdapter());
   }
+
   await Hive.initFlutter();
+  await Hive.openBox('recentSongNotifier');
   await Hive.openBox<int>('FavoriteDB');
+  await Hive.openBox<BebopModel>('playlistDb');
+
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
     androidNotificationChannelName: 'Audio playback',

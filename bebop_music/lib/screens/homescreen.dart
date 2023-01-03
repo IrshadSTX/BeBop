@@ -1,8 +1,8 @@
 import 'package:bebop_music/controller/get_all_song.dart';
-import 'package:bebop_music/screens/drawer_screen.dart';
-import 'package:bebop_music/screens/favouriteScreen.dart';
+import 'package:bebop_music/screens/HomeScreen/drawer_screen.dart';
+
 import 'package:bebop_music/screens/miniPlayer.dart';
-import 'package:bebop_music/screens/playlistScreen.dart';
+
 import 'package:bebop_music/screens/provider/provider.dart';
 
 import 'package:bebop_music/screens/searchScreen.dart';
@@ -152,6 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (!FavoriteDb.isInitialized) {
                       FavoriteDb.initialize(item.data!);
                     }
+                    GetAllSongController.songscopy = item.data!;
                     return Expanded(
                       child: Stack(
                         children: [
