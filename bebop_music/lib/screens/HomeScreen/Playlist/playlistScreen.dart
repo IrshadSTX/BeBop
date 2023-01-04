@@ -1,9 +1,8 @@
-
-
 import 'package:bebop_music/model/bebop_model.dart';
 import 'package:bebop_music/screens/HomeScreen/Playlist/playlist_single.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 import '../../../db/playlist_db.dart';
 
@@ -25,163 +24,148 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         builder:
             (BuildContext context, Box<BebopModel> musicList, Widget? child) {
           return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 20, 5, 46),
-            body: SafeArea(
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                    const Text(
-                      'Playlists',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          fontFamily: 'poppins'),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        // Navigator.pop(context);
-
-                        const snackBar = SnackBar(
-                          content: Text(
-                            'playlist created',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          duration: Duration(milliseconds: 1500),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        newplaylist(context, _formKey);
-                      },
-                      icon: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
+            floatingActionButton: FloatingActionButton.extended(
+              label: const Text('Add'),
+              icon: const Icon(Icons.add),
+              backgroundColor: const Color.fromARGB(255, 57, 4, 97),
+              onPressed: () {
+                const snackBar = SnackBar(
+                  content: Text(
+                    'playlist created',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  duration: Duration(milliseconds: 1500),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                newplaylist(context, _formKey);
+              },
+            ),
+            appBar: AppBar(
+              title: Text('Playlists'),
+              centerTitle: true,
+              backgroundColor: const Color.fromARGB(255, 57, 4, 97),
+            ),
+            body: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.black,
+                    Color.fromARGB(255, 5, 3, 69),
+                    Colors.black,
                   ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                        width: double.infinity,
-                        child: ListView.builder(
-                          itemBuilder: ((context, index) {
-                            final data = musicList.values.toList()[index];
-                            // allSongs.addAll(item.data!);
-                            return ValueListenableBuilder(
-                                valueListenable:
-                                    Hive.box<BebopModel>('playlistDb')
-                                        .listenable(),
-                                builder: (BuildContext context,
-                                    Box<BebopModel> musicList, Widget? child) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 6, right: 6, bottom: 8),
-                                    child: Card(
+              ),
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                            width: double.infinity,
+                            child: ListView.builder(
+                              itemBuilder: ((context, index) {
+                                final data = musicList.values.toList()[index];
+
+                                return ValueListenableBuilder(
+                                  valueListenable:
+                                      Hive.box<BebopModel>('playlistDb')
+                                          .listenable(),
+                                  builder: (BuildContext context,
+                                      Box<BebopModel> musicList,
+                                      Widget? child) {
+                                    return Card(
                                       color:
                                           const Color.fromARGB(255, 18, 2, 61),
                                       shadowColor: Colors.purpleAccent,
                                       shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          side: const BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 132, 0, 255))),
-                                      child: Stack(
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PlaylistSingle(
-                                                      playlist: data,
-                                                      findex: index,
-                                                    ),
-                                                  
-                                                  ));
-                                            },
-                                            
-                                            child: Container(
-                                              margin: EdgeInsets.only(top: 40),
-                                              child: Center(
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    const SizedBox(
-                                                      width: 40,
-                                                    ),
-                                                    Text(
-                                                      data.name,
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20,
-                                                          fontFamily:
-                                                              'poppins'),
-                                                    ),
-                                                    PopupMenuButton(
-                                                      icon: Icon(
-                                                        Icons.more_vert,
+                                        side: const BorderSide(
+                                          color:
+                                              Color.fromARGB(255, 132, 0, 255),
+                                        ),
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PlaylistSingle(
+                                                  playlist: data,
+                                                  findex: index,
+                                                ),
+                                              ));
+                                        },
+                                        child: Container(
+                                          height: 80,
+                                          child: Center(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Container(
+                                                  width: 300,
+                                                  child: TextScroll(
+                                                    data.name.toUpperCase(),
+                                                    mode:
+                                                        TextScrollMode.bouncing,
+                                                    style: const TextStyle(
                                                         color: Colors.white,
-                                                      ),
-                                                      itemBuilder: (context) =>
-                                                          [
-                                                        PopupMenuItem(
-                                                            value: 1,
-                                                            child:
-                                                                Text('Edit')),
-                                                        PopupMenuItem(
-                                                          value: 2,
-                                                          child: Text('delete'),
-                                                        )
-                                                      ],
-                                                      onSelected: (value) {
-                                                        if (value == 1) {
-                                                          EditPlaylistName(
-                                                              context,
-                                                              data,
-                                                              index);
-                                                        } else if (value == 2) {
-                                                          DeletePlaylist(
-                                                              context,
-                                                              musicList,
-                                                              index);
-                                                        }
-                                                      },
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20,
+                                                        fontFamily: 'poppins'),
+                                                  ),
+                                                ),
+                                                PopupMenuButton(
+                                                  icon: Icon(
+                                                    Icons.more_vert,
+                                                    color: Colors.white,
+                                                  ),
+                                                  itemBuilder: (context) => [
+                                                    PopupMenuItem(
+                                                      value: 1,
+                                                      child: Text('Edit'),
+                                                    ),
+                                                    PopupMenuItem(
+                                                      value: 2,
+                                                      child: Text('delete'),
                                                     )
                                                   ],
-                                                ),
-                                              ),
+                                                  onSelected: (value) {
+                                                    if (value == 1) {
+                                                      EditPlaylistName(
+                                                          context, data, index);
+                                                    } else if (value == 2) {
+                                                      DeletePlaylist(context,
+                                                          musicList, index);
+                                                    }
+                                                  },
+                                                )
+                                              ],
                                             ),
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                });
-                          }),
-                          itemCount: musicList.length,
-                        )),
-                  ),
-                )
-              ]),
+                                    );
+                                  },
+                                );
+                              }),
+                              itemCount: musicList.length,
+                            )),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
           );
         });
@@ -341,13 +325,12 @@ Future newplaylist(BuildContext context, formKey) {
   return showDialog(
     context: context,
     builder: (ctx) => SimpleDialog(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      backgroundColor: Color.fromARGB(255, 52, 6, 105),
+      shape: const RoundedRectangleBorder(),
+      backgroundColor: Color.fromARGB(255, 132, 0, 255),
       children: [
         const SimpleDialogOption(
           child: Text(
-            'New to Playlist',
+            'Enter Playlist Name',
             style: TextStyle(
                 fontFamily: 'poppins',
                 color: Color.fromARGB(255, 255, 255, 255),
@@ -366,9 +349,11 @@ Future newplaylist(BuildContext context, formKey) {
               controller: nameController,
               maxLength: 15,
               decoration: InputDecoration(
-                  counterStyle:
-                      TextStyle(color: Colors.white, fontFamily: 'poppins'),
-                  fillColor: Colors.white.withOpacity(0.7),
+                  counterStyle: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      fontFamily: 'poppins'),
+                  fillColor:
+                      Color.fromARGB(255, 255, 255, 255).withOpacity(0.7),
                   filled: true,
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
