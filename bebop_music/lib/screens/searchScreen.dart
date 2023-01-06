@@ -2,7 +2,7 @@ import 'package:bebop_music/screens/MusicPlayer/musicplayer.dart';
 import 'package:bebop_music/screens/homescreen.dart';
 import 'package:bebop_music/screens/provider/provider.dart';
 
-import 'package:bebop_music/screens/widgets/favouriteMenuButton.dart';
+import 'package:bebop_music/screens/HomeScreen/favorite/favouriteMenuButton.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 

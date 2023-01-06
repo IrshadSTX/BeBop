@@ -100,20 +100,20 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                                 ),
                                               ));
                                         },
-                                        child: Container(
-                                          height: 80,
-                                          child: Center(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Container(
-                                                  width: 300,
-                                                  child: TextScroll(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 80,
+                                            child: Center(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  TextScroll(
                                                     data.name.toUpperCase(),
                                                     mode:
                                                         TextScrollMode.bouncing,
@@ -124,33 +124,35 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                                         fontSize: 20,
                                                         fontFamily: 'poppins'),
                                                   ),
-                                                ),
-                                                PopupMenuButton(
-                                                  icon: Icon(
-                                                    Icons.more_vert,
-                                                    color: Colors.white,
-                                                  ),
-                                                  itemBuilder: (context) => [
-                                                    PopupMenuItem(
-                                                      value: 1,
-                                                      child: Text('Edit'),
+                                                  PopupMenuButton(
+                                                    icon: Icon(
+                                                      Icons.more_vert,
+                                                      color: Colors.white,
                                                     ),
-                                                    PopupMenuItem(
-                                                      value: 2,
-                                                      child: Text('delete'),
-                                                    )
-                                                  ],
-                                                  onSelected: (value) {
-                                                    if (value == 1) {
-                                                      EditPlaylistName(
-                                                          context, data, index);
-                                                    } else if (value == 2) {
-                                                      DeletePlaylist(context,
-                                                          musicList, index);
-                                                    }
-                                                  },
-                                                )
-                                              ],
+                                                    itemBuilder: (context) => [
+                                                      PopupMenuItem(
+                                                        value: 1,
+                                                        child: Text('Edit'),
+                                                      ),
+                                                      PopupMenuItem(
+                                                        value: 2,
+                                                        child: Text('delete'),
+                                                      )
+                                                    ],
+                                                    onSelected: (value) {
+                                                      if (value == 1) {
+                                                        EditPlaylistName(
+                                                            context,
+                                                            data,
+                                                            index);
+                                                      } else if (value == 2) {
+                                                        DeletePlaylist(context,
+                                                            musicList, index);
+                                                      }
+                                                    },
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),

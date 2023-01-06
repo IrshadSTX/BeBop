@@ -9,7 +9,7 @@ import 'package:bebop_music/screens/miniPlayer.dart';
 import 'package:bebop_music/screens/provider/provider.dart';
 
 import 'package:bebop_music/screens/searchScreen.dart';
-import 'package:bebop_music/screens/widgets/favouriteMenuButton.dart';
+import 'package:bebop_music/screens/HomeScreen/favorite/favouriteMenuButton.dart';
 import 'package:bebop_music/screens/widgets/libraries.dart';
 import 'package:flutter/material.dart';
 

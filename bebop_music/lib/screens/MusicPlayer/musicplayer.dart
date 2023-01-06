@@ -1,6 +1,6 @@
-import 'dart:developer';
 import 'package:bebop_music/controller/get_all_song.dart';
-import 'package:bebop_music/screens/provider/provider.dart';
+import 'package:bebop_music/screens/Details/settings.dart';
+import 'package:bebop_music/screens/HomeScreen/favorite/FavButtonPlayerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -107,7 +107,14 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       ),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingScreen(),
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           Icons.settings_outlined,
                           color: Colors.white,
@@ -116,13 +123,13 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 80, right: 10, left: 10),
+                  padding: const EdgeInsets.only(top: 80, right: 20, left: 20),
                   child: Center(
                     child: Column(
                       children: [
                         const ArtWorkWidget(),
                         const SizedBox(
-                          height: 10,
+                          height: 50,
                         ),
                         Text(
                           widget.songModelList[currentIndex].displayNameWOExt,
@@ -132,22 +139,37 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Poppins',
-                              fontSize: 25,
+                              fontSize: 20,
                               color: Color.fromARGB(255, 219, 212, 234)),
                         ),
-                        Text(
-                          widget.songModelList[currentIndex].artist
-                                      .toString() ==
-                                  "<unknown>"
-                              ? "Unknown Artist"
-                              : widget.songModelList[currentIndex].artist
-                                  .toString(),
-                          overflow: TextOverflow.fade,
-                          maxLines: 1,
-                          style: const TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 15,
-                              color: Color.fromARGB(255, 147, 118, 214)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FavButMusicPlaying(
+                                songFavoriteMusicPlaying:
+                                    widget.songModelList[currentIndex]),
+                            Text(
+                              widget.songModelList[currentIndex].artist
+                                          .toString() ==
+                                      "<unknown>"
+                                  ? "Unknown Artist"
+                                  : widget.songModelList[currentIndex].artist
+                                      .toString(),
+                              overflow: TextOverflow.fade,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14,
+                                  color: Color.fromARGB(255, 147, 118, 214)),
+                            ),
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.playlist_add,
+                                  color: Colors.white,
+                                  size: 24,
+                                )),
+                          ],
                         ),
                         Row(
                           children: [

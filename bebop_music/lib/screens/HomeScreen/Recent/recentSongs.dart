@@ -1,6 +1,6 @@
 import 'package:bebop_music/controller/get_all_song.dart';
 import 'package:bebop_music/screens/MusicPlayer/musicplayer.dart';
-import 'package:bebop_music/screens/widgets/favouriteMenuButton.dart';
+import 'package:bebop_music/screens/HomeScreen/favorite/favouriteMenuButton.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 

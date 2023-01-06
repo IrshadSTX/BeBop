@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import '../../db/favourite_db.dart';
+import '../../../db/favourite_db.dart';
 
 class FavoriteButton extends StatefulWidget {
   FavoriteButton({super.key, required this.songFavorite});
