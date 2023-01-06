@@ -78,7 +78,7 @@ class LibraryHome extends StatelessWidget {
                     ),
                   ),
                   const Text(
-                    'Favourites',
+                    'Favorites',
                     style: TextStyle(
                         color: Color.fromARGB(255, 153, 112, 210),
                         fontSize: 16,

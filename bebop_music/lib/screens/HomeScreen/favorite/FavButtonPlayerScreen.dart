@@ -46,9 +46,9 @@ class _FavoriteButtonState extends State<FavButMusicPlaying> {
               FavoriteDb.favoriteSongs.notifyListeners();
             },
             icon: FavoriteDb.isFavor(widget.songFavoriteMusicPlaying)
-                ? Icon(
+                ? const Icon(
                     Icons.favorite,
-                    color: Colors.red,
+                    color: Color.fromARGB(255, 147, 118, 214),
                     size: 28,
                   )
                 : const Icon(

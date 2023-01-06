@@ -18,7 +18,7 @@ class FavouriteScreen extends StatelessWidget {
               appBar: AppBar(
                 centerTitle: true,
                 backgroundColor: const Color.fromARGB(255, 57, 4, 97),
-                title: const Text('Favourites'),
+                title: const Text('Favorites'),
               ),
               body: SafeArea(
                 child: Container(

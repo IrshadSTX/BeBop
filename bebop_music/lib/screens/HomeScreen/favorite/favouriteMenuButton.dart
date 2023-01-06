@@ -1,13 +1,21 @@
+import 'package:bebop_music/model/bebop_model.dart';
+import 'package:bebop_music/screens/homescreen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:bebop_music/db/favourite_db.dart';
+
+import '../../../db/favourite_db.dart';
 
 class FavoriteMenuButton extends StatefulWidget {
-  const FavoriteMenuButton({super.key, required this.songFavorite});
+  const FavoriteMenuButton(
+      {super.key, required this.songFavorite, this.findex});
   final SongModel songFavorite;
-  @override
+  final findex;
   State<FavoriteMenuButton> createState() => _FavoriteMenuButtonState();
 }
+
+bool isAddedToPlaylist = false;
 
 class _FavoriteMenuButtonState extends State<FavoriteMenuButton> {
   @override
@@ -55,13 +63,122 @@ class _FavoriteMenuButtonState extends State<FavoriteMenuButton> {
                     fontFamily: 'Poppins',
                     fontSize: 13),
               ),
+              value: 2,
               // value: PlaylistScreen(),
             )
           ],
+          onSelected: (value) {
+            if (value == 2) {
+              showPlaylistdialog(context);
+            }
+          },
           color: Color.fromARGB(255, 37, 5, 92),
           elevation: 2,
         );
       },
     );
+  }
+
+  showPlaylistdialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            title: Text(
+              textAlign: TextAlign.center,
+              "Select your playlist!",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 51, 2, 114),
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.bold),
+            ),
+            content: SizedBox(
+              height: 300,
+              width: double.maxFinite,
+              child: ValueListenableBuilder(
+                  valueListenable:
+                      Hive.box<BebopModel>('playlistDb').listenable(),
+                  builder: (BuildContext context, Box<BebopModel> musicList,
+                      Widget? child) {
+                    return ListView.builder(
+                      itemCount: musicList.length,
+                      itemBuilder: (context, index) {
+                        final data = musicList.values.toList()[index];
+
+                        return Card(
+                          color: Color.fromARGB(255, 51, 2, 114),
+                          shadowColor: Colors.purpleAccent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: const BorderSide(color: Colors.white)),
+                          child: ListTile(
+                            title: Text(
+                              data.name,
+                              style: TextStyle(
+                                  color: Colors.white, fontFamily: 'poppins'),
+                            ),
+                            trailing: isAddedToPlaylist
+                                ? Icon(
+                                    Icons.playlist_add_check,
+                                    color: Colors.white,
+                                  )
+                                : Icon(
+                                    Icons.playlist_add,
+                                    color: Colors.white,
+                                  ),
+                            onTap: () {
+                              songAddToPlaylist(startSong[index], data);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  }),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'cancel',
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 51, 2, 114),
+                        fontFamily: 'poppins'),
+                  ))
+            ],
+          );
+        });
+  }
+
+  void songAddToPlaylist(SongModel data, datas) {
+    if (!datas.isValueIn(data.id)) {
+      setState(() {
+        isAddedToPlaylist = true;
+      });
+      datas.add(data.id);
+      const snackbar1 = SnackBar(
+          duration: Duration(milliseconds: 850),
+          backgroundColor: Colors.black,
+          content: Text(
+            'Song added to Playlist',
+            style: TextStyle(color: Colors.greenAccent),
+          ));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar1);
+    } else {
+      setState(() {
+        isAddedToPlaylist = false;
+      });
+      const snackbar2 = SnackBar(
+          duration: Duration(milliseconds: 850),
+          backgroundColor: Colors.black,
+          content: Text(
+            'Song already added to this playlist',
+            style: TextStyle(color: Colors.redAccent),
+          ));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar2);
+    }
   }
 }

@@ -1,7 +1,9 @@
 import 'package:bebop_music/controller/get_all_song.dart';
+import 'package:bebop_music/model/bebop_model.dart';
 import 'package:bebop_music/screens/Details/settings.dart';
 import 'package:bebop_music/screens/HomeScreen/favorite/FavButtonPlayerScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../db/favourite_db.dart';
@@ -123,7 +125,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 80, right: 20, left: 20),
+                  padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
                   child: Center(
                     child: Column(
                       children: [
@@ -163,11 +165,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                   color: Color.fromARGB(255, 147, 118, 214)),
                             ),
                             IconButton(
-                                onPressed: () {},
-                                icon: Icon(
+                                onPressed: () {
+                                  showPlaylistdialog(context);
+                                },
+                                icon: const Icon(
                                   Icons.playlist_add,
                                   color: Colors.white,
-                                  size: 24,
                                 )),
                           ],
                         ),
@@ -224,7 +227,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      Color.fromARGB(255, 20, 5, 46),
+                                      const Color.fromARGB(255, 20, 5, 46),
                                   shape: const CircleBorder()),
                               onPressed: () async {
                                 if (GetAllSongController.audioPlayer.playing) {
@@ -281,7 +284,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             IconButton(
-                              iconSize: 30,
+                              iconSize: 24,
                               onPressed: () {
                                 setState(() {
                                   if (_isShuffling == false) {
@@ -305,7 +308,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                     ),
                             ),
                             IconButton(
-                                iconSize: 30,
+                                iconSize: 24,
                                 onPressed: () {
                                   setState(() {
                                     if (_isLooping) {
@@ -323,7 +326,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                                         Icons.repeat,
                                         color: Colors.amber,
                                       )
-                                    : Icon(
+                                    : const Icon(
                                         Icons.repeat,
                                         color: Colors.white,
                                       )),
@@ -344,5 +347,98 @@ class _PlayerScreenState extends State<PlayerScreen> {
   void changeToSeconds(int seconds) {
     Duration duration = Duration(seconds: seconds);
     GetAllSongController.audioPlayer.seek(duration);
+  }
+
+  showPlaylistdialog(context) {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            title: const Text(
+              "Select your playlist!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: const Color.fromARGB(255, 51, 2, 114),
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.bold),
+            ),
+            content: SizedBox(
+              height: 300,
+              width: double.maxFinite,
+              child: ValueListenableBuilder(
+                  valueListenable:
+                      Hive.box<BebopModel>('playlistDb').listenable(),
+                  builder: (BuildContext context, Box<BebopModel> musicList,
+                      Widget? child) {
+                    return ListView.builder(
+                      itemCount: musicList.length,
+                      itemBuilder: (context, index) {
+                        final data = musicList.values.toList()[index];
+
+                        return Card(
+                          color: const Color.fromARGB(255, 51, 2, 114),
+                          shadowColor: Colors.purpleAccent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: const BorderSide(color: Colors.white)),
+                          child: ListTile(
+                            title: Text(
+                              data.name,
+                              style: const TextStyle(
+                                  color: Colors.white, fontFamily: 'poppins'),
+                            ),
+                            trailing: const Icon(
+                              Icons.playlist_add,
+                              color: Colors.white,
+                            ),
+                            onTap: () {
+                              songAddToPlaylist(
+                                  widget.songModelList[currentIndex], data);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  }),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                        color: const Color.fromARGB(255, 51, 2, 114),
+                        fontFamily: 'poppins'),
+                  ))
+            ],
+          );
+        });
+  }
+
+  void songAddToPlaylist(SongModel data, datas) {
+    if (!datas.isValueIn(data.id)) {
+      datas.add(data.id);
+      const snackbar1 = SnackBar(
+          duration: Duration(milliseconds: 850),
+          backgroundColor: Colors.black,
+          content: Text(
+            'Song added to Playlist',
+            style: TextStyle(color: Colors.greenAccent),
+          ));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar1);
+    } else {
+      const snackbar2 = SnackBar(
+          duration: Duration(milliseconds: 850),
+          backgroundColor: Colors.black,
+          content: Text(
+            'Song already added to this playlist',
+            style: TextStyle(color: Colors.redAccent),
+          ));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar2);
+    }
   }
 }

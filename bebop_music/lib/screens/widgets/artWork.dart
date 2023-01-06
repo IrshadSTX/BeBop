@@ -14,12 +14,12 @@ class ArtWorkWidget extends StatelessWidget {
     return QueryArtworkWidget(
       id: context.watch<SongModelProvider>().id,
       type: ArtworkType.AUDIO,
-      artworkHeight: 200,
-      artworkWidth: 200,
+      artworkHeight: 300,
+      artworkWidth: 300,
       artworkFit: BoxFit.cover,
       nullArtworkWidget: const Icon(
         Icons.music_note,
-        size: 200,
+        size: 250,
       ),
     );
   }

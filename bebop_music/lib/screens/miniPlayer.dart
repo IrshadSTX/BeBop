@@ -46,7 +46,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                 top: BorderSide(color: Colors.cyan, width: 2),
               ),
               color: Color.fromARGB(255, 2, 3, 61)),
-          height: 80,
+          height: 100,
           width: MediaQuery.of(context).size.width * 1.0,
           child: Stack(
             children: [
@@ -153,7 +153,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
                 IconButton(
                   iconSize: 35,
                   onPressed: () async {
-                    
                     if (GetAllSongController.audioPlayer.hasNext) {
                       await GetAllSongController.audioPlayer.seekToNext();
                       await GetAllSongController.audioPlayer.play();
