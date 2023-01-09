@@ -1,44 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:simfonie/Text/text_all_widget.dart';
 
-class TermsAndConditionScreen extends StatelessWidget {
-  const TermsAndConditionScreen({super.key});
+class TermsAndConditions extends StatelessWidget {
+  const TermsAndConditions({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_const_constructors
     return Scaffold(
       appBar: AppBar(
-        title: Text(TextAllWidget.settingTermsAndCondition),
-        backgroundColor: const Color.fromARGB(255, 20, 5, 46),
+        title: Text('Terms and Conditions'),
+        backgroundColor: const Color.fromARGB(255, 57, 4, 97),
       ),
-      backgroundColor: const Color.fromARGB(255, 20, 5, 46),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: const [
-              Text(
+      // ignore: prefer_const_constructors
+      body: Center(
+        child: SafeArea(
+            child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.black,
+                Color.fromARGB(255, 5, 3, 69),
+                Colors.black,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: Text(
                 """
         
         
-        Last updated: 2022-12-13
+        Last updated: 2023-01-10
         
         Introduction
         
-        Welcome to Simfonie App,\n
-        These Terms of Service govern your use of our website located at lala.com (together or individually “Service”) operated by simfonie App.\n
+        Welcome to Bebop App,\n
+        These Terms of Service govern your use of our website located at lala.com (together or individually “Service”) operated by Bebop App.\n
         Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages.
         
         Your agreement with us includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read and understood Agreements, and agree to be bound of them.
-        If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at hafeedpallikkal@gmail.com so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service.
+        If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at irshadmoorkanad.p@gmail.com so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service.
         
         2. Communications
-        By using our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at hafeedpallikkal@gmail.com.
+        By using our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at irshadmoorkanad.p@gmail.com.
         
         3. Contests, Sweepstakes and Promotions
         Any contests, sweepstakes or other promotions (collectively, “Promotions”) made available through Service may be governed by rules that are separate from these Terms of Service. If you participate in any Promotions, please review the applicable rules as well as our Privacy Policy. If the rules for a Promotion conflict with these Terms of Service, Promotion rules will apply.
         
-        4. ContentContent found on or through this Service are the property of simfonie App or used with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.
+        4. ContentContent found on or through this Service are the property of Bebop App or used with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.
         
         5. Prohibited Uses
         You may use Service only for lawful purposes and in accordance with Terms. You agree not to use Service:
@@ -66,11 +80,11 @@ class TermsAndConditionScreen extends StatelessWidget {
         Service is intended only for access and use by individuals at least eighteen (18) years old. By accessing or using Service, you warrant and represent that you are at least eighteen (18) years of age and with the full authority, right, and capacity to enter into this agreement and abide by all of the terms and conditions of Terms. If you are not at least eighteen (18) years old, you are prohibited from both the access and usage of Service.
         
         8. Intellectual Property
-        Service and its original content (excluding Content provided by users), features and functionality are and will remain the exclusive property of simfonie App and its licensors. Service is protected by copyright, trademark, and other laws of  and foreign countries. Our trademarks may not be used in connection with any product or service without the prior written consent of lie App.
+        Service and its original content (excluding Content provided by users), features and functionality are and will remain the exclusive property of Bebop App and its licensors. Service is protected by copyright, trademark, and other laws of  and foreign countries. Our trademarks may not be used in connection with any product or service without the prior written consent of lie App.
         
         9. Copyright Policy
         We respect the intellectual property rights of others. It is our policy to respond to any claim that Content posted on Service infringes on the copyright or other intellectual property rights (“Infringement”) of any person or entity.
-        If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement, please submit your claim via email to hafeedpallikkal@gmail.com, with the subject line: “Copyright Infringement” and include in your claim a detailed description of the alleged Infringement as detailed below, under “DMCA Notice and Procedure for Copyright Infringement Claims”
+        If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement, please submit your claim via email to irshadmoorkanad.p@gmail.com, with the subject line: “Copyright Infringement” and include in your claim a detailed description of the alleged Infringement as detailed below, under “DMCA Notice and Procedure for Copyright Infringement Claims”
         You may be held accountable for damages (including costs and attorneys’ fees) for misrepresentation or bad-faith claims on the infringement of any Content found on and/or through Service on your copyright.
         
         10. DMCA Notice and Procedure for Copyright Infringement Claims
@@ -81,14 +95,14 @@ class TermsAndConditionScreen extends StatelessWidget {
         0.4. your address, telephone number, and email address;
         0.5. a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law;
         0.6. a statement by you, made under penalty of perjury, that the above information in your notice is accurate and that you are the copyright owner or authorized to act on the copyright owner’s behalf.
-        You can contact our Copyright Agent via email at hafeedpallikkal@gmail.com.
+        You can contact our Copyright Agent via email at irshadmoorkanad.p@gmail.com.
         
         11. Error Reporting and Feedback
-        You may provide us either directly at hafeedpallikkal@gmail.com or via third party sites and tools with information and feedback concerning errors, suggestions for improvements, ideas, problems, complaints, and other matters related to our Service (“Feedback”). You acknowledge and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to the Feedback; (iii) Feedback does not contain confidential information or proprietary information from you or any third party; and (iv) Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose.
+        You may provide us either directly at irshadmoorkanad.p@gmail.com or via third party sites and tools with information and feedback concerning errors, suggestions for improvements, ideas, problems, complaints, and other matters related to our Service (“Feedback”). You acknowledge and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to the Feedback; (iii) Feedback does not contain confidential information or proprietary information from you or any third party; and (iv) Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose.
         
         12. Links To Other Web Sites
-        Our Service may contain links to third party web sites or services that are not owned or controlled by simfonie App.
-        simfonie App has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.
+        Our Service may contain links to third party web sites or services that are not owned or controlled by Bebop App.
+        Bebop App has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.
         For example, the outlined Terms and Conditions generator/a is an easy-to-use free tool for creating an excellent standard Terms of Service template for a website, blog, e-commerce store or app.
         YOU ACKNOWLEDGE AND AGREE THAT COMPANY SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE ON OR THROUGH ANY SUCH THIRD PARTY WEB SITES OR SERVICES.
         WE STRONGLY ADVISE YOU TO READ THE TERMS OF SERVICE AND PRIVACY POLICIES OF ANY THIRD PARTY WEB SITES OR SERVICES THAT YOU VISIT.
@@ -127,15 +141,14 @@ class TermsAndConditionScreen extends StatelessWidget {
         BY USING SERVICE OR OTHER SERVICES PROVIDED BY US, YOU ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS OF SERVICE AND AGREE TO BE BOUND BY THEM.
         
         21. Contact Us
-        Please send your feedback, comments, requests for technical support by email: hafeedpallikkal@gmail.com.
+        Please send your feedback, comments, requests for technical support by email: irshadmoorkanad.p@gmail.com.
         
                 """,
-                style: TextStyle(
-                    fontFamily: 'poppins', fontSize: 14, color: Colors.white),
+                style: TextStyle(fontFamily: 'poppins', color: Colors.white),
               ),
-            ],
+            ),
           ),
-        ),
+        )),
       ),
     );
   }

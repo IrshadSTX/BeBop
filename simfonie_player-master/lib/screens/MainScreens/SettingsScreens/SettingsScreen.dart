@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:simfonie/Text/text_all_widget.dart';
 import 'package:simfonie/screens/MainScreens/SettingsScreens/AboutScreen.dart';
 import 'package:simfonie/screens/MainScreens/SettingsScreens/TermsAndCondition.dart';
+import 'package:simfonie/screens/MainScreens/SettingsScreens/privacy-policy.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -34,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
                         ));
                   },
                   child: ListSettings(
-                    titleText: 'About Simfonie',
+                    titleText: TextAllWidget.settingAboutSimfonie,
                     yourIcon: Icons.info_outline,
                   ),
                 ),
@@ -47,12 +49,25 @@ class SettingsScreen extends StatelessWidget {
                         ));
                   },
                   child: ListSettings(
-                    titleText: 'Terms and condition',
+                    titleText: TextAllWidget.settingTermsAndCondition,
                     yourIcon: Icons.gavel_rounded,
                   ),
                 ),
-                const ListSettings(
-                  titleText: 'Share Music',
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PrivacyPolicyScreen(),
+                        ));
+                  },
+                  child: ListSettings(
+                    titleText: TextAllWidget.settingPrivacyPolicy,
+                    yourIcon: Icons.privacy_tip_outlined,
+                  ),
+                ),
+                ListSettings(
+                  titleText: TextAllWidget.settingShareSimfonie,
                   yourIcon: Icons.share_outlined,
                 )
               ],

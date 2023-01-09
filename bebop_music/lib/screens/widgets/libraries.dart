@@ -1,4 +1,5 @@
 import 'package:bebop_music/screens/HomeScreen/Playlist/playlistScreen.dart';
+import 'package:bebop_music/screens/HomeScreen/TopBeats/top_beats.dart';
 import 'package:bebop_music/screens/HomeScreen/favorite/favouriteScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -124,7 +125,41 @@ class LibraryHome extends StatelessWidget {
                 // column3
               ],
             ),
-
+            Column(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TopBeatsScreen(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/micheal.jpeg'),
+                        ),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 153, 112, 210),
+                          width: 3,
+                        ),
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
+                ),
+                const Text(
+                  'Top Beats',
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 153, 112, 210),
+                      fontSize: 16,
+                      fontFamily: 'Poppins'),
+                ),
+                // column3
+              ],
+            ),
             //your widget items here
           ],
         ),

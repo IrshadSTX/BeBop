@@ -1,3 +1,5 @@
+import 'package:bebop_music/screens/Details/settings.dart';
+import 'package:bebop_music/screens/HomeScreen/TopBeats/top_beats.dart';
 import 'package:flutter/material.dart';
 
 import 'Playlist/playlistScreen.dart';
@@ -24,6 +26,18 @@ class NavigationDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
+              leading: const Icon(Icons.my_library_music_outlined),
+              title: const Text('Top Beats'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TopBeatsScreen(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.playlist_add_check),
               title: const Text('Playlists'),
               onTap: () {
@@ -37,7 +51,7 @@ class NavigationDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.favorite_border_outlined),
-              title: const Text('Favourite'),
+              title: const Text('Favorites'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -50,17 +64,14 @@ class NavigationDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.gavel),
-              title: const Text('Terms & Condition'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.error_outline),
-              title: const Text('About Us'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),

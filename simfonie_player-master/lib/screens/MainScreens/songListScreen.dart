@@ -6,12 +6,13 @@ import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:simfonie/Controllers/Get_Top_Beats_controller.dart';
 import 'package:simfonie/Controllers/Get_all_song_controller.dart';
 import 'package:simfonie/Controllers/get_recent_song_controller.dart';
 import 'package:simfonie/db/favourite_db.dart';
 
 import '../../provider/song_model_provider.dart';
-import 'libraries/FavouriteSongsScreen/FavouriteMenuButton.dart';
+import '../MiniScreens/MenuButtonWidget/MenuButton.dart';
 import '../MiniScreens/NowPlayingScreen/NowPlayingScreen.dart';
 import 'libraries/PlaylistScreen/PlaylistScreen.dart';
 import '../MiniScreens/Drawer widgets/DrawerWidget.dart';
@@ -31,7 +32,12 @@ class _ListSongScreenState extends State<ListSongScreen> {
   bool isFavourite = false;
   bool sizedBoxSpacing = false;
   List<SongModel> allSongs = [];
-
+  int newcounter = 0;
+  int oldcounter = 0;
+  int newTopBeatSong = 0;
+  int alreadyAddedTopSong = 0;
+  int counter = 0;
+  Map topBeatSongCounterMap = {0: 0};
   void playSong(String? uri) {
     try {
       _audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
@@ -74,7 +80,7 @@ class _ListSongScreenState extends State<ListSongScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const PlaylistScreen(),
+                      builder: (context) => PlaylistScreen(),
                     ));
               },
               icon: const Icon(
@@ -129,7 +135,7 @@ class _ListSongScreenState extends State<ListSongScreen> {
                               FavoriteDb.initialize(items.data!);
                             }
                             GetAllSongController.songscopy =
-                                items.data!; //don't forgot it for playlist
+                                items.data!; //for playlist
 
                             return ListView.builder(
                               itemBuilder: ((context, index) {
@@ -175,7 +181,8 @@ class _ListSongScreenState extends State<ListSongScreen> {
                                             color: Colors.blueGrey),
                                       ),
                                       trailing: FavoriteMenuButton(
-                                          songFavorite: startSong[index]),
+                                          songFavorite: startSong[index],
+                                          findex: index),
                                       onTap: () {
                                         GetAllSongController.audioPlayer
                                             .setAudioSource(
@@ -186,6 +193,52 @@ class _ListSongScreenState extends State<ListSongScreen> {
                                         GetRecentSongController
                                             .addRecentlyPlayed(
                                                 items.data![index].id);
+
+                                        // topBeatSongCounterMap
+                                        //     .forEach((key, value) {
+                                        //   if (key != items.data![index].id) {
+                                        //     newTopBeatSong++;
+                                        //   } else {
+                                        //     alreadyAddedTopSong++;
+                                        //   }
+                                        // });
+                                        // if (newTopBeatSong >= 1) {
+                                        //   topBeatSongCounterMap.addAll({
+                                        //     items.data![index].id.toInt(): 1
+                                        //   });
+                                        //   // topBeatBox.put('TopBeatBox', topBceatSongCounterMap);
+                                        //   print(
+                                        //       'second $topBeatSongCounterMap');
+
+                                        //   newcounter++;
+                                        // }
+                                        // if (alreadyAddedTopSong >= 1) {
+                                        //   topBeatSongCounterMap.update(
+                                        //     items.data![index].id,
+                                        //     (value) => ++value,
+                                        //   );
+                                        //   oldcounter++;
+
+                                        //   // topBeatBox.putAt(index, topBeatSongCounterMap.values);
+                                        //   GetTopBeatsController.topBeatSong
+                                        //       .add(items.data![index]);
+                                        // }
+
+                                        // topBeatSongCounterMap
+                                        //     .forEach((key, value) {
+                                        //   if (key == items.data![index].id) {
+                                        //     if (value >= 1) {
+                                        //       //   topBeatSongList = topBeatSongCounterMap.keys.toList();
+                                        //       //   topBeatSongList
+                                        //       //       .add(widget.songModelList[currentIndex].id.toInt());
+                                        //       GetTopBeatsController.topBeatSong
+                                        //           .add(items.data![index]);
+                                        //     }
+                                        //   }
+                                        // });
+
+                                        GetTopBeatsController.addTopBeats(
+                                            items.data![index].id);
 
                                         context
                                             .read<SongModelProvider>()

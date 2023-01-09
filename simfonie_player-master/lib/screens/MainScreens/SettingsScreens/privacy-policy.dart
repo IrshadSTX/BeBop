@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simfonie/Text/text_all_widget.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
@@ -8,8 +9,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Privacy Policy'),
-        backgroundColor: const Color.fromARGB(255, 57, 4, 97),
+        title: Text(TextAllWidget.settingPrivacyPolicy),
+        backgroundColor: const Color.fromARGB(255, 20, 5, 46),
       ),
       backgroundColor: const Color.fromARGB(255, 20, 5, 46),
       body: Padding(
@@ -21,9 +22,9 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 """
         
         
-Privacy Policy for Bebop player
+Privacy Policy for simfonie player
 
-Last updated: January 10, 2023
+Last updated: January 02, 2023
 
 This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
 
@@ -40,9 +41,9 @@ Account means a unique account created for You to access our Service or parts of
 
 Affiliate means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.
 
-Application refers to Bebop player, the software program provided by the Company.
+Application refers to simfonie player, the software program provided by the Company.
 
-Company (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to Bebop player.
+Company (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to simfonie player.
 
 Country refers to: Kerala, India
 
@@ -159,7 +160,7 @@ You are advised to review this Privacy Policy periodically for any changes. Chan
 Contact Us
 If you have any questions about this Privacy Policy, You can contact us:
 
-By email: irshadmoorkanad.p@gmail.com
+By email: hafeedpallikkal@gmail.com
         
                 """,
                 style: TextStyle(
