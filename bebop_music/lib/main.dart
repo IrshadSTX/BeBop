@@ -15,6 +15,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox('recentSongNotifier');
   await Hive.openBox<int>('FavoriteDB');
+  await Hive.openBox('TopBeatBox');
   await Hive.openBox<BebopModel>('playlistDb');
 
   await JustAudioBackground.init(

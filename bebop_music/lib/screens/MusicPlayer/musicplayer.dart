@@ -1,6 +1,7 @@
 import 'package:bebop_music/controller/get_all_song.dart';
 import 'package:bebop_music/model/bebop_model.dart';
 import 'package:bebop_music/screens/Details/settings.dart';
+import 'package:bebop_music/screens/HomeScreen/Playlist/playlistScreen.dart';
 import 'package:bebop_music/screens/HomeScreen/favorite/FavButtonPlayerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -371,39 +372,71 @@ class _PlayerScreenState extends State<PlayerScreen> {
                       Hive.box<BebopModel>('playlistDb').listenable(),
                   builder: (BuildContext context, Box<BebopModel> musicList,
                       Widget? child) {
-                    return ListView.builder(
-                      itemCount: musicList.length,
-                      itemBuilder: (context, index) {
-                        final data = musicList.values.toList()[index];
+                    return Hive.box<BebopModel>('playlistDb').isEmpty
+                        ? Center(
+                            child: const Positioned(
+                              right: 30,
+                              left: 30,
+                              bottom: 50,
+                              child: Text('No Playlist found!',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      fontFamily: 'poppins')),
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: musicList.length,
+                            itemBuilder: (context, index) {
+                              final data = musicList.values.toList()[index];
 
-                        return Card(
-                          color: const Color.fromARGB(255, 51, 2, 114),
-                          shadowColor: Colors.purpleAccent,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(color: Colors.white)),
-                          child: ListTile(
-                            title: Text(
-                              data.name,
-                              style: const TextStyle(
-                                  color: Colors.white, fontFamily: 'poppins'),
-                            ),
-                            trailing: const Icon(
-                              Icons.playlist_add,
-                              color: Colors.white,
-                            ),
-                            onTap: () {
-                              songAddToPlaylist(
-                                  widget.songModelList[currentIndex], data);
-                              Navigator.pop(context);
+                              return Card(
+                                color: const Color.fromARGB(255, 51, 2, 114),
+                                shadowColor: Colors.purpleAccent,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side:
+                                        const BorderSide(color: Colors.white)),
+                                child: ListTile(
+                                  title: Text(
+                                    data.name,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'poppins'),
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.playlist_add,
+                                    color: Colors.white,
+                                  ),
+                                  onTap: () {
+                                    songAddToPlaylist(
+                                        widget.songModelList[currentIndex],
+                                        data);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              );
                             },
-                          ),
-                        );
-                      },
-                    );
+                          );
                   }),
             ),
             actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PlaylistScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Add to Playlist',
+                    style: TextStyle(
+                        color: const Color.fromARGB(255, 51, 2, 114),
+                        fontFamily: 'poppins'),
+                  )),
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
