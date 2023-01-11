@@ -7,7 +7,7 @@
 
    
    <application
-        android:label="bebop_music"
+        android:label="Bebop Music"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

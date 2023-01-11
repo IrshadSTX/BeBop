@@ -21,6 +21,9 @@ class PlayerScreen extends StatefulWidget {
 class _PlayerScreenState extends State<PlayerScreen> {
   Duration _duration = const Duration();
   Duration _position = const Duration();
+  List<int> topBeatSongList = [];
+  int newTopBeatSong = 0;
+  Map topBeatSongCounterMap = {0: 0};
   bool _isPlaying = false;
   bool _isLooping = false;
   bool _isShuffling = false;

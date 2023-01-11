@@ -1,8 +1,7 @@
+import 'package:bebop_music/screens/homescreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-
-import '../screens/HomeScreen/homescreen.dart';
 
 class GetTopBeatsController {
   static ValueNotifier<List<SongModel>> topBeatsNotifier = ValueNotifier([]);

@@ -1,3 +1,4 @@
+import 'package:bebop_music/controller/Get_Top_Beats_controller.dart';
 import 'package:bebop_music/controller/get_all_song.dart';
 import 'package:bebop_music/screens/HomeScreen/drawer_screen.dart';
 
@@ -196,8 +197,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             GetAllSongController.createSongList(
                                                 item.data!),
                                             initialIndex: index);
-                                    // recently played controller
+
                                     GetRecentSongController.addRecentlyPlayed(
+                                        item.data![index].id);
+                                    GetTopBeatsController.addTopBeats(
                                         item.data![index].id);
                                     context
                                         .read<SongModelProvider>()

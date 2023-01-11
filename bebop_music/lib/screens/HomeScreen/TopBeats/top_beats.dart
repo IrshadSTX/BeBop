@@ -22,39 +22,28 @@ class _TopBeatsScreenState extends State<TopBeatsScreen> {
     int duplicateCounter = 0;
     List<SongModel> topBeatsList = [];
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 20, 5, 46),
-        body: SafeArea(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 57, 4, 97),
+          title: Text('Top Beats'),
+          centerTitle: true,
+        ),
+        body: Container(
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.black,
+                Color.fromARGB(255, 5, 3, 69),
+                Colors.black,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
           child: Stack(
             children: [
-              Image.asset('assets/images/ellipse_favourite.png'),
               Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                      const Text(
-                        'Top Beats',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            fontFamily: 'poppins'),
-                      ),
-                      const SizedBox(
-                        width: 50,
-                      )
-                    ],
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -129,104 +118,86 @@ class _TopBeatsScreenState extends State<TopBeatsScreen> {
                                             if (filteredList != null) {
                                               topBeatsList = filteredList;
                                             }
-                                            return ListView.builder(
+                                            return ListView.separated(
                                               itemBuilder: ((context, index) {
-                                                // allSongs.addAll(items.data!);
-                                                return Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 6, right: 6),
-                                                  child: Card(
-                                                    color: const Color.fromARGB(
-                                                        255, 18, 2, 61),
-                                                    shadowColor:
-                                                        Colors.purpleAccent,
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        side: const BorderSide(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    132,
-                                                                    0,
-                                                                    255))),
-                                                    child: ListTile(
-                                                      iconColor: Colors.white,
-                                                      selectedColor:
-                                                          Colors.purpleAccent,
-                                                      leading: QueryArtworkWidget(
-                                                          id: topBeatsList[
-                                                                  index]
-                                                              .id,
-                                                          type:
-                                                              ArtworkType.AUDIO,
-                                                          nullArtworkWidget:
-                                                              const CircleAvatar(
-                                                                  radius: 27,
-                                                                  backgroundImage:
-                                                                      AssetImage(
-                                                                          'assets/images/playlist.png'))),
-                                                      title: Text(
-                                                        topBeatsList[index]
-                                                            .displayNameWOExt,
-                                                        style: const TextStyle(
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            fontFamily:
-                                                                'poppins',
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      subtitle: Text(
-                                                        topBeatsList[index]
-                                                                    .artist ==
-                                                                "<unknown>"
-                                                            ? "Unknown Artist"
-                                                            : topBeatsList[
-                                                                    index]
-                                                                .artist
-                                                                .toString(),
-                                                        style: const TextStyle(
-                                                            fontFamily:
-                                                                'poppins',
-                                                            fontSize: 12,
-                                                            color: Colors
-                                                                .blueGrey),
-                                                      ),
-                                                      trailing:
-                                                          FavoriteMenuButton(
-                                                        songFavorite:
-                                                            topBeatsList[index],
-                                                      ),
-                                                      onTap: () {
-                                                        GetAllSongController
-                                                            .audioPlayer
-                                                            .setAudioSource(
-                                                                GetAllSongController
-                                                                    .createSongList(
-                                                                        topBeatsList),
-                                                                initialIndex:
-                                                                    index);
-                                                        GetAllSongController
-                                                            .audioPlayer
-                                                            .play();
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  PlayerScreen(
-                                                                      songModelList:
-                                                                          GetAllSongController
-                                                                              .playingSong),
-                                                            ));
-                                                      },
+                                                return Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      width: 2,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 81, 21, 88),
                                                     ),
+                                                  ),
+                                                  child: ListTile(
+                                                    iconColor: Colors.white,
+                                                    selectedColor:
+                                                        Colors.purpleAccent,
+                                                    leading: QueryArtworkWidget(
+                                                      id: topBeatsList[index]
+                                                          .id,
+                                                      type: ArtworkType.AUDIO,
+                                                      nullArtworkWidget: Icon(Icons
+                                                          .music_note_rounded),
+                                                    ),
+                                                    title: Text(
+                                                      topBeatsList[index]
+                                                          .displayNameWOExt,
+                                                      style: const TextStyle(
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          fontFamily: 'poppins',
+                                                          color: Colors.white),
+                                                    ),
+                                                    subtitle: Text(
+                                                      topBeatsList[index]
+                                                                  .artist ==
+                                                              "<unknown>"
+                                                          ? "Unknown Artist"
+                                                          : topBeatsList[index]
+                                                              .artist
+                                                              .toString(),
+                                                      style: const TextStyle(
+                                                          fontFamily: 'poppins',
+                                                          fontSize: 12,
+                                                          color:
+                                                              Colors.blueGrey),
+                                                    ),
+                                                    trailing:
+                                                        FavoriteMenuButton(
+                                                      songFavorite:
+                                                          topBeatsList[index],
+                                                    ),
+                                                    onTap: () {
+                                                      GetAllSongController
+                                                          .audioPlayer
+                                                          .setAudioSource(
+                                                              GetAllSongController
+                                                                  .createSongList(
+                                                                      topBeatsList),
+                                                              initialIndex:
+                                                                  index);
+                                                      GetAllSongController
+                                                          .audioPlayer
+                                                          .play();
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PlayerScreen(
+                                                                    songModelList:
+                                                                        GetAllSongController
+                                                                            .playingSong),
+                                                          ));
+                                                    },
                                                   ),
                                                 );
                                               }),
+                                              separatorBuilder:
+                                                  (context, index) =>
+                                                      const SizedBox(
+                                                height: 5,
+                                              ),
                                               itemCount: topBeatsList.length,
                                             );
                                           })),
