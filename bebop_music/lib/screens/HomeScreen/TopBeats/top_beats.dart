@@ -91,12 +91,13 @@ class _TopBeatsScreenState extends State<TopBeatsScreen> {
 
                                             if (item.data!.isEmpty) {
                                               return const Center(
-                                                  child: Text(
-                                                'No Songs Available',
-                                                style: TextStyle(
-                                                  color: Colors.white,
+                                                child: Text(
+                                                  'No Songs Available',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
-                                              ));
+                                              );
                                             }
 
                                             for (var i = 0;
